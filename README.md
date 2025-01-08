@@ -32,3 +32,10 @@ See [action.yaml](action.yaml).
       - id: build
         uses: arda-cards/gradle-build-action@v1
 ```
+
+Permission Required
+
+```yaml
+    permissions:
+      contents: read
+```
