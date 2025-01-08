@@ -7,6 +7,7 @@
 Keep the newest entry at top, format date according to ISO 8601: `YYYY-MM-DD`.
 
 Categories, defined in [changemap.json](.github/clq/changemap.json):
+
 - *major* release trigger:
   - `Changed` for changes in existing functionality.
   - `Removed` for now removed features.
@@ -18,5 +19,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
   - `Security` in case of vulnerabilities.
 
 ## [1.0.0] - 2025-01-07
+
 ### Added
+
 - build kotlin, docker, helm
