@@ -22,8 +22,8 @@ echo "::group::Build"
 export IS_MAIN_BRANCH
 export IS_PULL_REQUEST
 if [ "${SKIP_TEST}" = "true" ]; then
-  ./gradlew test buildImage helmPackage -x test "${gradle_arguments[@]}"
+  ./gradlew build buildImage -x test "${gradle_arguments[@]}"
 else
-  ./gradlew test buildImage helmPackage "${gradle_arguments[@]}"
+  ./gradlew build buildImage "${gradle_arguments[@]}"
 fi
 echo "::endgroup::"

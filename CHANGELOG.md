@@ -18,6 +18,12 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
   - `Fixed` for any bugfixes.
   - `Security` in case of vulnerabilities.
 
+## [1.1.0] - 2025-01-09
+
+### Fixed
+
+- remove explicit call to helmPackage, it is part of the build sequence
+
 ## [1.0.0] - 2025-01-08
 
 ### Added

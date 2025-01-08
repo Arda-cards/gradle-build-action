@@ -8,7 +8,7 @@ This action build a gradle-based module.
 ## Contract with the build script
 
 This action expects a gradle wrapper at the root of the project with the standard targets
-`test`, `buildImage`, `helmPackage`.
+`test`, `buildImage`.
 
 ## Arguments
 
