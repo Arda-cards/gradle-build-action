@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+set -eu
+
+echo "::group::Initialize locale"
 # Force en_US.UTF-8
 sudo locale-gen en_US
 sudo locale-gen en_US.UTF-8
@@ -8,8 +11,7 @@ LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 export LANG
 export LC_ALL
-
-set -eu
+echo "::endgroup::"
 
 gradle_arguments=()
 if [ "${VERSION}" ]; then
