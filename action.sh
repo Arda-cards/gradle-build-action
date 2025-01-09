@@ -28,15 +28,29 @@ else
 fi
 echo "::endgroup::"
 
-#if [ "$GITHUB_REF" = "refs/heads/main" ]; then
-  echo "::group::Publish"
-  ## Helm
+if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+
   chart=$(ls build/helm/charts/*.tgz)
   if [ -f "${chart}" ]; then
+    echo "::group::Publish Helm"
     echo "Pushing chart ${chart}"
     echo "${GITHUB_TOKEN}" | helm registry login ghcr.io -u $ --password-stdin
-    helm push "${chart}" "oci://ghcr.io/arda-cards"
+    helm push "${chart}" "oci://ghcr.io/arda-cards/charts"
+    echo "::endgroup::"
   fi
 
-  echo "::endgroup::"
-#fi
+  jib_json=build/jib-image.json
+  jib_tar=build/jib-image.tar
+  if [ -f "${jib_json}" ] && [ -f "${jib_tar}" ]; then
+    echo "::group::Publish Docker"
+    image=$(jq -r '( .image + ":" + . .tags[0] )' <"${jib_json}")
+    remote_image="ghcr.io/arda-cards/containers/${image}"
+
+    echo "Pushing docker ${image} to ${remote_image}"
+    echo "${GITHUB_TOKEN}" | docker login ghcr.io -u $ --password-stdin
+    docker image load --input "${jib_tar}"
+    docker tag "${image}" "${remote_image}"
+    docker push "${remote_image}"
+    echo "::endgroup::"
+  fi
+fi

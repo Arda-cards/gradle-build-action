@@ -23,6 +23,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 ### Added
 
 - publish single helm chart from `build/helm/charts/' if on the main branch
+- publish single docker image from `build/jib-image.tar' if on the main branch
 
 ### Fixed
 
