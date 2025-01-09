@@ -20,6 +20,10 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 ## [1.1.0] - 2025-01-09
 
+### Added
+
+- publish single helm chart from `build/helm/charts/' if on the main branch
+
 ### Fixed
 
 - remove explicit call to helmPackage, it is part of the build sequence

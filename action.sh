@@ -27,3 +27,16 @@ else
   ./gradlew build buildImage "${gradle_arguments[@]}"
 fi
 echo "::endgroup::"
+
+#if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+  echo "::group::Publish"
+  ## Helm
+  chart=$(ls build/helm/charts/*.tgz)
+  if [ -f "${chart}" ]; then
+    echo "Pushing chart ${chart}"
+    echo "${GITHUB_TOKEN}" | helm registry login ghcr.io -u $ --password-stdin
+    helm push "${chart}" "oci://ghcr.io/arda-cards"
+  fi
+
+  echo "::endgroup::"
+#fi

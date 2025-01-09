@@ -38,4 +38,5 @@ Permission Required
 ```yaml
     permissions:
       contents: read
+      package: write
 ```
