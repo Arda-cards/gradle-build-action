@@ -18,3 +18,4 @@ runs:
       env:
         SKIP_TEST: ${{ inputs.skip_test }}
         VERSION: ${{ inputs.version }}
+        GITHUB_TOKEN: ${{ github.token  }}
