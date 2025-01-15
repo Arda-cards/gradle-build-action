@@ -2,6 +2,12 @@
 name: "gradle_build"
 description: "Builds a gradle-based module"
 inputs:
+  docker_registry:
+    description: "The registry to persist Docker images"
+    required: true
+  helm_registry:
+    description: "The registry to persist Helm charts"
+    required: true
   skip_test:
     description: "Skip test execution (true|false)"
     required: false
@@ -9,6 +15,13 @@ inputs:
   version:
     description: "Version for the gradle artifact, defaults to the value read from the project"
     required: false
+outputs:
+  chart_name:
+    description: "The name of the published chart, if any"
+    value: ${{ steps.build.outputs.chart_name }}
+  chart_version:
+    description: "The version of the published chart, if any"
+    value: ${{ steps.build.outputs.chart_version }}
 runs:
   using: "composite"
   steps:
@@ -16,6 +29,8 @@ runs:
       shell: bash
       run: ${{ github.action_path }}/action.sh
       env:
+        DOCKER_REGISTRY: ${{ inputs.docker_registry }}
+        GITHUB_TOKEN: ${{ github.token  }}
+        HELM_REGISTRY: ${{ inputs.helm_registry }}
         SKIP_TEST: ${{ inputs.skip_test }}
         VERSION: ${{ inputs.version }}
-        GITHUB_TOKEN: ${{ github.token  }}

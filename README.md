@@ -1,6 +1,6 @@
 # gradle build
 
-[![ci](https://github.com/Arda-cards/gradle-build-action/actions/workflows/ci.yml/badge.svg)](https://github.com/Arda-cards/gradle-build-action/actions/workflows/ci.yml)
+[![ci](https://github.com/Arda-cards/gradle-build-action/actions/workflows/ci.yaml/badge.svg)](https://github.com/Arda-cards/gradle-build-action/actions/workflows/ci.yaml)
 [CHANGELOG.md](CHANGELOG.md)
 
 This action build a gradle-based module.
