@@ -23,10 +23,10 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 ### Added
 
 - Export the name and version of the chart as `chart_name`, `chart_version` if this action published it.
+- Registries are now passed to the action as input
 
 #### Fixed
 
-- Registry are now passed to the action as input
 - Fix build badge to refer to the new build file name 
 
 ## [1.1.0] - 2025-01-09
