@@ -27,14 +27,14 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 #### Fixed
 
-- Fix build badge to refer to the new build file name 
+- Fix build badge to refer to the new build filename
 
 ## [1.1.0] - 2025-01-09
 
 ### Added
 
-- publish single helm chart from `build/helm/charts/' if on the main branch
-- publish single docker image from `build/jib-image.tar' if on the main branch
+- publish single helm chart from `build/helm/charts/` if on the main branch
+- publish single docker image from `build/jib-image.tar` if on the main branch
 
 ### Fixed
 
