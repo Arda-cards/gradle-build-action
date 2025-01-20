@@ -24,7 +24,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 - Registries are now passed to the action as input: the two required inputs `docker_registry` and `helm_registry`.
 
-## [1.2.0] - 2025-01-19  [YANKED]
+## 1.2.0 - 2025-01-19  [YANKED]
 
 ### Added
 
