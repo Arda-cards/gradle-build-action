@@ -19,8 +19,6 @@ if [ "${VERSION}" ]; then
 fi
 
 echo "::group::Build"
-export IS_MAIN_BRANCH
-export IS_PULL_REQUEST
 if [ "${SKIP_TEST}" = "true" ]; then
   ./gradlew build buildImage -x test "${gradle_arguments[@]}"
 else
@@ -30,12 +28,21 @@ echo "::endgroup::"
 
 if [ "$GITHUB_REF" = "refs/heads/main" ]; then
 
-  chart=$(ls build/helm/charts/*.tgz)
-  if [ -f "${chart}" ]; then
+  # Assuming a single chart in the module...
+  chartTgz=$(ls build/helm/charts/*.tgz)
+  if [ -f "${chartTgz}" ]; then
     echo "::group::Publish Helm"
-    echo "Pushing chart ${chart}"
+    echo "Pushing chart ${chartTgz} to ${HELM_REGISTRY}"
     echo "${GITHUB_TOKEN}" | helm registry login ghcr.io -u $ --password-stdin
-    helm push "${chart}" "oci://ghcr.io/arda-cards/charts"
+    helm push "${chartTgz}" "${HELM_REGISTRY}"
+
+    declare -A chartProperties
+    # read file line by line and populate the array.   Field separator is ":"
+    while IFS=':' read -r k v; do
+      [[ -n $k ]] && chartProperties["$k"]="${v## }"
+    done <build/helm/charts/*/Chart.yaml
+    echo "chart_name=${chartProperties[name]}" >>"${GITHUB_OUTPUT}"
+    echo "chart_version=${chartProperties[version]}" >>"${GITHUB_OUTPUT}"
     echo "::endgroup::"
   fi
 
@@ -44,7 +51,7 @@ if [ "$GITHUB_REF" = "refs/heads/main" ]; then
   if [ -f "${jib_json}" ] && [ -f "${jib_tar}" ]; then
     echo "::group::Publish Docker"
     image=$(jq -r '( .image + ":" + . .tags[0] )' <"${jib_json}")
-    remote_image="ghcr.io/arda-cards/containers/${image}"
+    remote_image="${DOCKER_REGISTRY}/${image}"
 
     echo "Pushing docker ${image} to ${remote_image}"
     echo "${GITHUB_TOKEN}" | docker login ghcr.io -u $ --password-stdin
