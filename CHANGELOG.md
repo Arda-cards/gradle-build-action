@@ -18,12 +18,17 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
   - `Fixed` for any bugfixes.
   - `Security` in case of vulnerabilities.
 
-## [1.2.0] - 2025-01-19
+## [2.0.0] - 2025-01-19
+
+### CHanged
+
+- Registries are now passed to the action as input: the two required inputs `docker_registry` and `helm_registry`.
+
+## [1.2.0] - 2025-01-19  [YANKED]
 
 ### Added
 
 - Export the name and version of the chart as `chart_name`, `chart_version` if this action published it.
-- Registries are now passed to the action as input
 
 #### Fixed
 
