@@ -16,7 +16,7 @@ inputs:
     required: true
   kind:
     description: "Whether this build test or test and publish (test|publish)"
-    required: "true"
+    required: true
   skip_test:
     description: "Skip test execution (true|false)"
     required: false
