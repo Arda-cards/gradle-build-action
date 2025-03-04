@@ -34,6 +34,10 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 - support for GitHGub debug mode: The action turns on `-xv` when the workflow runs in debug mode.
 
+### Fixed
+
+- CHANGELOG.md had a 4-level header in 1.2.0; it must be 3-level
+
 ## [2.0.0] - 2025-01-19
 
 ### Changed
@@ -46,7 +50,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 - Export the name and version of the chart as `chart_name`, `chart_version` if this action published it.
 
-#### Fixed
+### Fixed
 
 - Fix build badge to refer to the new build filename
 
