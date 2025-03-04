@@ -18,6 +18,22 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
   - `Fixed` for any bugfixes.
   - `Security` in case of vulnerabilities.
 
+## [3.0.0] - 2025-01-19
+
+### Changed
+
+- A build can build, test and publish, or skip the publication step;  
+  use the new `kind` argument for this. A version is required to publish.
+- The build requires name and PAT of a user with read access to packages in order to get dependencies
+
+### Removed
+
+- do not use the `buildImage` target, it is up to gradle to decide what a `build` does.
+
+### Added
+
+- support for GitHGub debug mode: The action turns on `-xv` when the workflow runs in debug mode.
+
 ## [2.0.0] - 2025-01-19
 
 ### Changed

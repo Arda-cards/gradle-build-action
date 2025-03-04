@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [ "${RUNNER_DEBUG}" == 1 ]; then
+  set -xv
+fi
+
 set -eu
 
 echo "::group::Initialize locale"
@@ -18,29 +22,47 @@ if [ "${VERSION}" ]; then
   gradle_arguments+=("-Pversion=$VERSION")
 fi
 
-echo "::group::Build"
 if [ "${SKIP_TEST}" = "true" ]; then
-  ./gradlew build buildImage -x test "${gradle_arguments[@]}"
-else
-  ./gradlew build buildImage "${gradle_arguments[@]}"
+  gradle_arguments+=("-x" "test")
 fi
+
+case "${KIND}" in
+test) ;;
+publish)
+  gradle_arguments+=("publish")
+  if [ -z "${VERSION}" ]; then
+    echo "::error Version required to publish"
+    exit 1
+  fi
+  ;;
+*)
+  echo "::error Unknown value ${KIND}, has to be one of (publish|test)"
+  exit 1
+  ;;
+esac
+
+echo "::group::Build"
+./gradlew build "${gradle_arguments[@]}"
 echo "::endgroup::"
 
-if [ "$GITHUB_REF" = "refs/heads/main" ]; then
+if [ "${KIND}" = "publish" ]; then
 
   # Assuming a single chart in the module...
-  chartTgz=$(ls build/helm/charts/*.tgz)
-  if [ -f "${chartTgz}" ]; then
+  readonly chartDir=build/helm/charts
+  # Creating the dir to prevent error when there no charts
+  mkdir -p ${chartDir}
+  chartTgz=$(find ${chartDir} -name '*.tgz')
+  if [ -f "${chartDir}/${chartTgz}" ]; then
     echo "::group::Publish Helm"
-    echo "Pushing chart ${chartTgz} to ${HELM_REGISTRY}"
+    echo "Pushing chart ${chartDir}${chartTgz} to ${HELM_REGISTRY}"
     echo "${GITHUB_TOKEN}" | helm registry login ghcr.io -u $ --password-stdin
-    helm push "${chartTgz}" "${HELM_REGISTRY}"
+    helm push "${chartDir}${chartTgz}" "${HELM_REGISTRY}"
 
     declare -A chartProperties
     # read file line by line and populate the array.   Field separator is ":"
     while IFS=':' read -r k v; do
       [[ -n $k ]] && chartProperties["$k"]="${v## }"
-    done <build/helm/charts/*/Chart.yaml
+    done <${chartDir}/*/Chart.yaml
     echo "chart_name=${chartProperties[name]}" >>"${GITHUB_OUTPUT}"
     echo "chart_version=${chartProperties[version]}" >>"${GITHUB_OUTPUT}"
     echo "::endgroup::"

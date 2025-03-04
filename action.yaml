@@ -5,8 +5,17 @@ inputs:
   docker_registry:
     description: "The registry to persist Docker images"
     required: true
+  gpr_user:
+    description: "Name of a user with read access to packages, required to get dependencies"
+    required: true
+  gpr_key:
+    description: "Personal Access Token of the gpr_user with read access to packages, required to get dependencies"
+    required: true
   helm_registry:
     description: "The registry to persist Helm charts"
+    required: true
+  kind:
+    description: "Whether this build test or test and publish (test|publish)"
     required: true
   skip_test:
     description: "Skip test execution (true|false)"
@@ -31,6 +40,9 @@ runs:
       env:
         DOCKER_REGISTRY: ${{ inputs.docker_registry }}
         GITHUB_TOKEN: ${{ github.token  }}
+        GPR_USER: ${{ inputs.gpr_user }}
+        GPR_KEY:  ${{ inputs.gpr_key }}
         HELM_REGISTRY: ${{ inputs.helm_registry }}
+        KIND: ${{ inputs.kind }}
         SKIP_TEST: ${{ inputs.skip_test }}
         VERSION: ${{ inputs.version }}
