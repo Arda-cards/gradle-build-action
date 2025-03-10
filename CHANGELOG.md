@@ -18,7 +18,13 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
   - `Fixed` for any bugfixes.
   - `Security` in case of vulnerabilities.
 
-## [3.0.0] - 2025-01-19
+## [3.0.1] - 2025-03-10
+
+### Fixed
+
+- script would not publish the helm chart because it built the wrong relative path.
+
+## [3.0.0] - 2025-03-04
 
 ### Changed
 
