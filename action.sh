@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "${RUNNER_DEBUG}" == 1 ]; then
-  set -xv
-fi
+[ "${RUNNER_DEBUG}" == 1 ] && set -xv
 
 set -eu
 
@@ -52,11 +50,11 @@ if [ "${KIND}" = "publish" ]; then
   # Creating the dir to prevent error when there no charts
   mkdir -p ${chartDir}
   chartTgz=$(find ${chartDir} -name '*.tgz')
-  if [ -f "${chartDir}/${chartTgz}" ]; then
+  if [ -f "${chartTgz}" ]; then
     echo "::group::Publish Helm"
-    echo "Pushing chart ${chartDir}${chartTgz} to ${HELM_REGISTRY}"
+    echo "Pushing chart ${chartTgz} to ${HELM_REGISTRY}"
     echo "${GITHUB_TOKEN}" | helm registry login ghcr.io -u $ --password-stdin
-    helm push "${chartDir}${chartTgz}" "${HELM_REGISTRY}"
+    helm push "${chartTgz}" "${HELM_REGISTRY}"
 
     declare -A chartProperties
     # read file line by line and populate the array.   Field separator is ":"
