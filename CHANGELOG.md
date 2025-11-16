@@ -24,6 +24,8 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 - Bump `actions/checkout` from 4 to 5
 - Bump `super-linter/super-linter` from 7 to 8
+- Automatically annotate new pull-requests with the *assignee*, the *project*, the *iteration* and the *status*.
+  It is an asynchronous event-based process that might take a minute or two to complete.
 
 ## [3.0.1] - 2025-03-10
 
