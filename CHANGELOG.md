@@ -23,6 +23,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 ### Fixed
 
 - Bump `actions/checkout` from 4 to 5
+- Bump `super-linter/super-linter` from 7 to 8
 
 ## [3.0.1] - 2025-03-10
 
@@ -71,7 +72,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 ### Added
 
 - publish single helm chart from `build/helm/charts/` if on the main branch
-- publish single docker image from `build/jib-image.tar` if on the main branch
+- publish single Docker image from `build/jib-image.tar` if on the main branch
 
 ### Fixed
 
@@ -81,4 +82,4 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 ### Added
 
-- build kotlin, docker, helm
+- build kotlin, Docker, helm
