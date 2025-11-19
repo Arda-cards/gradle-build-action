@@ -18,6 +18,15 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
   - `Fixed` for any bugfixes.
   - `Security` in case of vulnerabilities.
 
+## [3.0.2] - 2025-11-16
+
+### Fixed
+
+- Bump `actions/checkout` from 4 to 5
+- Bump `super-linter/super-linter` from 7 to 8
+- Automatically annotate new pull-requests with the *assignee*, the *project*, the *iteration* and the *status*.
+  It is an asynchronous event-based process that might take a minute or two to complete.
+
 ## [3.0.1] - 2025-03-10
 
 ### Fixed
@@ -65,7 +74,7 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 ### Added
 
 - publish single helm chart from `build/helm/charts/` if on the main branch
-- publish single docker image from `build/jib-image.tar` if on the main branch
+- publish single Docker image from `build/jib-image.tar` if on the main branch
 
 ### Fixed
 
@@ -75,4 +84,4 @@ Categories, defined in [changemap.json](.github/clq/changemap.json):
 
 ### Added
 
-- build kotlin, docker, helm
+- build kotlin, Docker, helm
